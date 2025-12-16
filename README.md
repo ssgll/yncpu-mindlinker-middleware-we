@@ -67,6 +67,22 @@ npm run build
 npm run preview
 ```
 
+## Docker 部署
+
+### 构建 Docker 镜像
+
+```bash
+docker build -t mindlinker-frontend .
+```
+
+### 运行容器
+
+```bash
+docker run -d -p 9999:9999 --name mindlinker-app mindlinker-frontend
+```
+
+访问 http://localhost:9999 查看应用。
+
 ## 应用流程说明
 
 ### 1. 登录流程
