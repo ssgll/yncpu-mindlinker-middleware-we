@@ -72,7 +72,11 @@ npm run preview
 ### 构建 Docker 镜像
 
 ```bash
+# 使用默认配置构建
 docker build -t mindlinker-frontend .
+
+# 或者在构建时指定 API 地址
+docker build --build-arg API_BASE_URL=http://your-api-url:port -t mindlinker-frontend .
 ```
 
 ### 运行容器
@@ -82,6 +86,31 @@ docker run -d -p 9999:9999 --name mindlinker-app mindlinker-frontend
 ```
 
 访问 http://localhost:9999 查看应用。
+
+## 环境变量配置
+
+项目使用 `.env` 文件配置 API 基础 URL，您可以通过以下方式覆盖默认配置：
+
+### 开发环境
+
+1. **命令行设置环境变量：**
+   ```bash
+   # Windows CMD
+   set VITE_API_BASE_URL=http://your-api-url:port&& npm run dev
+   
+   # Windows PowerShell
+   $env:VITE_API_BASE_URL="http://your-api-url:port"; npm run dev
+   
+   # Linux/macOS
+   VITE_API_BASE_URL=http://your-api-url:port npm run dev
+   ```
+
+2. **创建 .env.local 文件（推荐）：**
+   在项目根目录创建 `.env.local` 文件：
+   ```
+   VITE_API_BASE_URL=http://your-custom-api-url:port
+   ```
+   > 注意：`.env.local` 文件不会被提交到版本控制系统中。
 
 ## 应用流程说明
 

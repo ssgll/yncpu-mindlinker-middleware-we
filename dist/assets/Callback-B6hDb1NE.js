@@ -1,0 +1,43 @@
+import {r as o, o as g, d as f, e as y, c as _, a as h, u as d, t as w, b as m} from "./index-CDP9AXWG.js";
+import {b, a as p} from "./auth-0ERBh5iF.js";
+
+const C = {get_manager_url: e => b.post("/ml/get_ml_link", {openId: e.openId, nickName: e.nickName})}, I = () => {
+    const e = o("loading"), a = o(""), r = o(""), n = o(), c = f(), u = async () => {
+        const t = c.query.code, l = c.query.state, i = c.query.error;
+        if (i) {
+            e.value = "error", a.value = `失败: ${i}`;
+            return
+        }
+        if (r.value = localStorage.getItem("access_token"), !r.value) try {
+            const s = await p.exchangeToken(t, l);
+            r.value = s.data.access_token, e.value = "success", localStorage.setItem("access_token", s.data.access_token)
+        } catch (s) {
+            e.value = "error", a.value = `未知错误${s}`
+        }
+    }, v = async () => {
+        try {
+            const t = await p.getUserProfile(r.value);
+            n.value = {openId: t.data.user_profile.attributes.cn, nickName: t.data.user_profile.id}
+        } catch (t) {
+            e.value = "error", a.value = `${t}`;
+            return
+        }
+    }, k = async () => {
+        try {
+            const l = (await C.get_manager_url(n.value)).data.url;
+            window.open(l, "_self")
+        } catch {
+            e.value = "error", console.log(a.value), a.value = `${a.value}`;
+            return
+        }
+    };
+    return g(async () => {
+        await u(), await v(), await k()
+    }), {status: e, errorMessage: a, access_token: r, handleCallback: u}
+}, S = {class: ""}, M = {key: 0, class: ""}, q = y({
+    __name: "Callback", setup(e) {
+        const {errorMessage: a} = I();
+        return (r, n) => (m(), _("div", S, [d(a) ? (m(), _("div", M, w(d(a)), 1)) : h("", !0)]))
+    }
+});
+export {q as default};

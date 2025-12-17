@@ -16,9 +16,9 @@ const authService = {
     // getToken: () => {
     //     localStorage.get("cas_token")
     // },
-    getUserProfile: (token:string)=>apiClient.post(`/sso/user?token=${token}`),
-    getUserMobile: (token:string)=>apiClient.post("/sso/mobile", token),
-    logout: (token:string)=> apiClient.post("/sso/logout",token),
+    getUserProfile: (token: string): Promise<Response<any>> => apiClient.post(`/sso/user?token=${token}`),
+    getUserMobile: (token: string) => apiClient.post("/sso/mobile", token),
+    logout: (token: string) => apiClient.post("/sso/logout", token),
 }
 
 export default authService

@@ -1,5 +1,5 @@
 # 使用 node 镜像进行构建
-FROM docker.1ms.run/node:18-alpine AS builder
+FROM node:18-alpine AS builder
 
 # 设置工作目录
 WORKDIR /app
@@ -13,11 +13,15 @@ RUN npm install
 # 复制源代码
 COPY . .
 
+# 构建应用（可以通过构建参数传递环境变量）
+ARG API_BASE_URL
+ENV VITE_API_BASE_URL=${API_BASE_URL}
+
 # 构建应用
 RUN npm run build
 
 # 使用 nginx 镜像作为生产环境
-FROM docker.1ms.run/nginx:alpine
+FROM nginx:alpine
 
 # 设置 nginx 配置
 COPY nginx.conf /etc/nginx/conf.d/default.conf

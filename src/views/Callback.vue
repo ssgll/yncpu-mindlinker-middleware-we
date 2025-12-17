@@ -2,17 +2,19 @@
 import {useCallback} from "@/hook/useCallback.ts"
 
 const {
-  errorMessage
+  errorMessage, status, msg
 } = useCallback()
 </script>
 
 <template>
-<div class="">
-  <div class="" v-if="errorMessage">
-    {{ errorMessage }}
+  <div class="">
+    <div class="" v-if="errorMessage">
+      {{ errorMessage }}
+    </div>
+    <div class="" v-if="status">
+      {{ msg }}
+    </div>
   </div>
-
-</div>
 </template>
 
 <style scoped>
